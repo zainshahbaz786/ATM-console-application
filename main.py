@@ -1,17 +1,10 @@
 # Atm Exercise to develop all functionalities of ATM Machine including some additonal features
-#import click
 import os.path
 import os
 import json
 from datetime import datetime
 from os import system, name
-
-
-
-
 class Admin:
-    # def __init__(self):
-    #     None
     def create_user(self, name, cnic, age, pswrd, addr, dep ):
         self.name = name
         self.cnic = cnic
@@ -105,8 +98,6 @@ class Admin:
                     else:
                         print("This Username is not an admin...")
 
-
-
                 # delete admin profile
                 elif opt == 3:
                     a_id = str(input("Enter the Username of the admin you want to delete:"))
@@ -126,9 +117,7 @@ class Admin:
                 elif opt == 6:
                     # os.system('clear')
                     exit()
-                # else:
-                #   opt = int(input("Enter the option number: "))
-
+             
     def del_customer(self,num):
         self.num = num
         if os.path.exists("Accounts/"+str(num)+'.json'):
@@ -159,14 +148,9 @@ class Admin:
             with open(file_path) as json_file:
                 data = json.load(json_file)
 
-                # print(data)
-                # if data["password"] != a_prevKey:
-                #     print("Incorrect Credentials.")
-                # if data["password"] == a_prevKey:
                 data["password"] = pswrd
                 json_object = json.dumps(data, indent=6)
-                # print(json_object)
-                # obj_to_json(json_object, file_path)
+
                 with open(file_path, "w") as outfile:
                     json.dump(data, outfile, indent=4)
 
@@ -177,9 +161,7 @@ class user:
     def obj_to_json(self, dict,fname):
         self.dict = dict
         self.fname = fname
-
         #converting dict to json
-        #file_path = r'./Accounts/{}.json'.format(fname)
         with open(fname, "w") as outfile:
             json.dump(dict, outfile, indent=4)
 
@@ -187,10 +169,9 @@ class user:
     def user_login(self,  user_id, user_pswrd):
         # dir_path = r'Accounts/{}'.format(user_id)
         file_path = r'./Accounts/{}.json'.format(user_id)
-        # file_name = user_id
+
         flag = os.path.isfile(file_path)
         if flag:
-            # print(f'The file {file_path} exists')
             with open(file_path) as json_file:
                 data = json.load(json_file)
                 json_file.close()
@@ -268,11 +249,8 @@ class user:
                                         # file_a.write(json_object)
                                         print("Transaction is saved for records.")
 
-
-
                                 else:
                                     print("Insufficent amount in your account")
-
                         elif option == 3:
                             amount = int(input("Enter the Amount you want  to deposit: "))
                             while(amount<0):
@@ -282,7 +260,6 @@ class user:
                             print("Your New Balance is:")
                             print(data["balance"])
                             self.obj_to_json(data, file_path)
-                            # print(data)
 
                         elif option == 4:
                             amount = int(input("Enter the Amount you want  to Withdraw: "))
@@ -290,23 +267,10 @@ class user:
                                 real_amount = amount
                                 data["balance"] = data["balance"] - amount
                                 self.obj_to_json(data, file_path)
-
-                                #print(data)
                         elif option == 0:
                             exit()
-
-            # print(self.pswrd)
         else:
             print(f'The file {file_path} does not exist')
-            # you can create it if required
-
-
-
-
-
-
-
-
 
 
 # main file
@@ -321,8 +285,6 @@ while main_menu==True:
 
         if menu_opt == 1:
             admin = Admin()
-            # print("1.Create Customer Profile\n2.View Customer Profile\n3.Access Admin Functionalities\n4.For Exit ")
-            #menu_opt = int(input("Enter the option: "))
 
             menu_opt =1000
             while menu_opt != 1234:
@@ -364,23 +326,5 @@ while main_menu==True:
             u_name = str(input("Enter the Username of Customer: "))
             u_pass = str(input("Enter the Password of Customer: "))
             person.user_login(u_name, u_pass)
-
-
-
-
-#person = user()
-#person.user_login("111", "1212")
-
-
-
-
-
-
-
-
-
-
-
-
 
 
