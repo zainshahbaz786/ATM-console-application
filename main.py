@@ -12,6 +12,8 @@ from os import system, name
 class Admin:
     # def __init__(self):
     #     None
+
+
     def create_user(self, name, cnic, age, pswrd, addr, dep ):
         self.name = name
         self.cnic = cnic
@@ -57,7 +59,9 @@ class Admin:
             dummy_p2 = str(input("Enter the Password  Again : "))
         paswrd = dummy_p1
         print("If you want to deposit any amount Now, Then Enter Amount otherwise Enter zero.")
-        deposit = int(input("Enter the Amount: "))
+
+        print("Enter the Amount: ")
+        deposit = inputVal()
         while deposit<0:
             deposit = int(input("Please enter the positive Amount: "))
 
@@ -86,7 +90,8 @@ class Admin:
             opt = 1000
 
             while opt != 0:
-                opt = int(input("Enter the option number: "))
+                print("Enter the option number: ")
+                opt=inputVal()
                 # Create new admin
                 if opt == 1:
                     new_admin_name = str(input("Enter the Username: "))
@@ -205,15 +210,17 @@ class user:
                     while option != 0:
                         print("\n1.View Profile \n2.Perform Transaction \n3.Deposit Money\n4.Withdraw Money ")
                         print("0. Exit Program")
-                        option = (int(input("Enter the Option: ")))
 
+                        print("Enter the Option. ")
+                        option = inputVal()
                         if option == 1:
                             print("\t\t\t\t ***- Profile Data -***")
                             # displaying data in better format
                             for key, value in data.items():
                                 print(key, ' : ', value)
                         elif option == 2:
-                            amount = int(input("Enter the Amount you want to transfer: "))
+                            print("Enter the Amount you want to transfer: ")
+                            amount = inputVal()
                             while amount < 1:
                                 amount = int(input("Enter the Positive Amount Again."))
                             sender_acc = user_id
@@ -256,7 +263,7 @@ class user:
                                     os.remove(file_path)
                                     with open(file_path, 'a') as f:
                                         json.dump(data, f, indent=4)
-                                        print("Your Account has been updated again")
+                                        print("Your Account has been updated again.")
                                         json_object = json.dumps(trans_dict, indent=6)
                                         file_a = open("./Accounts/Transactions.json", "a")
                                         # file_a.write(data )
@@ -274,9 +281,10 @@ class user:
                                     print("Insufficent amount in your account")
 
                         elif option == 3:
-                            amount = int(input("Enter the Amount you want  to deposit: "))
-                            while(amount<0):
-                                amount=int(input("You enter negtive character.Please enter deposit amount again:  "))
+                            print("Enter the Amount you want  to deposit: ")
+                            amount = inputVal()
+                            while(amount < 0):
+                                amount=int(input("You enter negative character.Please enter deposit amount again:  "))
                             data["balance"] += amount
                             print("Amount has been added to your amount")
                             print("Your New Balance is:")
@@ -297,7 +305,8 @@ class user:
 
             # print(self.pswrd)
         else:
-            print(f'The file {file_path} does not exist')
+            #print(f'{file_path} does not exist')
+            print("Account with this credential does not exist.\n")
             # you can create it if required
 
 
@@ -307,16 +316,26 @@ class user:
 
 
 
-
+def inputVal():
+    while True:
+        user_input = input("")
+        if user_input.isdigit():
+            integer_input = int(user_input)
+            return integer_input
+            break
+        else:
+            print("Invalid input. Please enter an integer.")
 
 # main file
 main_menu = True
 while main_menu==True:
 
     print("\n\n\n\t\t\t\t\t****   ATM MENU   *****")
-    menu_opt = int(input("1.For Admin Panel \n2.For User Panel \nEnter the Option Number: "))
+    print("1.For Admin Panel \n2.For User Panel \nEnter the Option Number: ")
+    menu_opt = inputVal()
 
-    while menu_opt>0 and menu_opt <3:
+
+    while menu_opt > 0 and menu_opt < 3:
 
 
         if menu_opt == 1:
@@ -329,7 +348,9 @@ while main_menu==True:
                 print("\t\t-----Admin Panel-----\n1.Create Customer Profile\n2.View Customer Profile\n3.Access Admin Functionalities  \n4.Delete Customer "
                       "\n5.Edit User Account Password \n6.For Previous Menu "
                       "\n7.For Exit the Program  ")
-                menu_opt = int(input("Enter the option: "))
+
+                print("Enter the option: ")
+                menu_opt = inputVal()
                 if menu_opt == 1:
                     admin.set_user_profile()
                     print("")
@@ -357,7 +378,6 @@ while main_menu==True:
                 elif menu_opt == 7:
                     main_menu = False
                     exit()
-
 
         elif menu_opt ==2:
             person = user()
