@@ -349,7 +349,7 @@ while main_menu==True:
                       "\n5.Edit User Account Password \n6.For Previous Menu "
                       "\n7.For Exit the Program  ")
 
-                print("Enter the option: ")
+                print("Enter the option ")
                 menu_opt = inputVal()
                 if menu_opt == 1:
                     admin.set_user_profile()
